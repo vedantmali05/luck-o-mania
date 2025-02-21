@@ -1,0 +1,45 @@
+.picker-list-view {
+  padding: 2.4rem 1.6rem;
+}
+
+.picker-list-view h2 {
+  margin-bottom: 1.6rem;
+  padding-left: 0.4rem;
+}
+
+.picker-list .drag-btn {
+  border: none;
+  cursor: grab;
+}
+
+.picker-list li:has(.drag-btn:hover) {
+  background-color: hsl(var(--clr-neutral-150));
+}
+
+.picker-list button.icon:has(.bi-x) {
+  border-radius: 50%;
+}
+
+.picker-list li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  margin-bottom: 0.4rem;
+  padding: 0.8rem 0.4rem;
+  font-size: var(--fs-400);
+  border-radius: 0.2rem;
+  background-color: hsl(var(--clr-neutral-100));
+}
+
+.picker-list li:first-of-type {
+  border-radius: 1.6rem 1.6rem 0 0;
+}
+
+.picker-list li:last-of-type {
+  border-radius: 0 0 1.6rem 1.6rem;
+}
+
+.picker-list div {
+  flex: 1;
+}

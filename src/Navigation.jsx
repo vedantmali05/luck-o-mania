@@ -5,7 +5,7 @@ import MenuButton from "./components/MenuButton.jsx";
 const Navigation = ({ isNavActive, setIsNavActive }) => {
     const [activeMenu, setActiveMenu] = useState("picker wheel");
 
-    // 
+    // Function to handle the Navbar visibility
     const handleNavVisibility = (e) => {
         const navBody = e.currentTarget.querySelector(".nav-body");
         if (!navBody.contains(e.target)) {
@@ -25,7 +25,7 @@ const Navigation = ({ isNavActive, setIsNavActive }) => {
                 {/* Nav Header */}
                 <section className="nav-header">
                     {/* Add a Mobile Visible Logo here .mobile-only */}
-                    <IconButton icon="bi-x-lg" clickEvent={() => setIsNavActive(false)} />
+                    <IconButton icon="bi-x-lg" onClick={() => setIsNavActive(false)} />
                 </section>
 
                 {/* Nav Contents */}
@@ -37,7 +37,7 @@ const Navigation = ({ isNavActive, setIsNavActive }) => {
                             iconType="text"
                             label={label}
                             isActive={activeMenu === key}
-                            clickEvent={() => setActiveMenu(key)}
+                            onClick={() => setActiveMenu(key)}
                         />
                     ))}
                 </menu>

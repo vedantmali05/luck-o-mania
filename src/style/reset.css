@@ -34,6 +34,28 @@
   --clr-neutral-800: 220, 5%, 27%;
   --clr-neutral-900: 220, 5%, 17%;
 
+  /* Primary */
+  --clr-primary-100: 5, 99%, 90%;
+  --clr-primary-200: 5, 99%, 83%;
+  --clr-primary-300: 5, 99%, 76%;
+  --clr-primary-400: 5, 99%, 69%;
+  --clr-primary-500: 5, 99%, 62%;
+  --clr-primary-600: 5, 99%, 55%;
+  --clr-primary-700: 5, 99%, 48%;
+  --clr-primary-800: 5, 99%, 41%;
+  --clr-primary-900: 5, 99%, 34%;
+
+  /* Accent */
+  --clr-accent-100: 31, 64%, 98%;
+  --clr-accent-200: 31, 64%, 93%;
+  --clr-accent-300: 31, 64%, 88%;
+  --clr-accent-400: 31, 64%, 83%;
+  --clr-accent-500: 31, 64%, 73%;
+  --clr-accent-600: 31, 64%, 68%;
+  --clr-accent-700: 31, 64%, 63%;
+  --clr-accent-800: 31, 64%, 58%;
+  --clr-accent-900: 31, 64%, 53%;
+
   /* /////////////////////////
     TYPOGRAPHY
   ///////////////////////// */
@@ -60,6 +82,14 @@
 
 html {
   font-size: 62.5%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-weight: 400;
 }
 
 h1,
@@ -109,4 +139,49 @@ button {
   background: none;
   cursor: pointer;
   font-size: var(--fs-400);
+}
+
+/* /////////////////////////
+  TEXT ELEMENTS
+  ///////////////////////// */
+
+a {
+  font-size: var(--fs-400);
+}
+
+/* /////////////////////////
+  BUTTON ELEMENTS
+  ///////////////////////// */
+
+button.icon {
+  border: 1.5px solid hsl(var(--clr-neutral-100));
+
+  border-radius: 0.4rem;
+  width: 3.2rem;
+  aspect-ratio: 1;
+  min-width: 3.2rem;
+  overflow: hidden;
+}
+
+button.icon:hover {
+  background-color: hsl(var(--clr-neutral-150));
+}
+
+button.menu-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  padding: 0.8rem;
+  margin-bottom: 0.4rem;
+  border-radius: 0.8rem;
+  gap: 1.2rem;
+}
+
+button.menu-item:hover {
+  background-color: hsl(var(--clr-neutral-150));
+}
+
+button.menu-item .icon {
+  font-size: var(--fs-500);
 }

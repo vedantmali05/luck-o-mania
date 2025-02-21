@@ -1,48 +1,4 @@
 @import url("./reset.css");
 @import url("./header.css");
 @import url("./navigation.css");
-
-/* /////////////////////////
-  TEXT ELEMENTS
-///////////////////////// */
-
-a {
-  font-size: var(--fs-400);
-}
-
-/* /////////////////////////
-  BUTTON ELEMENTS
-///////////////////////// */
-
-button.icon {
-  border: 1.5px solid hsl(var(--clr-neutral-100));
-
-  border-radius: 0.4rem;
-  width: 3.2rem;
-  aspect-ratio: 1;
-  min-width: 3.2rem;
-  overflow: hidden;
-}
-
-button.icon:hover {
-  background-color: hsl(var(--clr-neutral-150));
-}
-
-button.menu-item {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  padding: 0.8rem;
-  margin-bottom: 0.4rem;
-  border-radius: 0.8rem;
-  gap: 1.2rem;
-}
-
-button.menu-item:hover {
-  background-color: hsl(var(--clr-neutral-150));
-}
-
-button.menu-item .icon {
-  font-size: var(--fs-500);
-}
+@import url("./picker-lists.css");

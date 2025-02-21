@@ -4,10 +4,10 @@ const Header = ({ setIsNavActive }) => {
 
     return (
         <header>
-            <IconButton icon="bi-list" clickEvent={() => { setIsNavActive(true) }} />
+            <IconButton icon="bi-list" onClick={() => { setIsNavActive(true) }} />
 
             <div>
-                <h1>Luck-O-Mania</h1>
+                <h1>Luck·O·Mania</h1>
                 <IconButton icon="bi-search" />
             </div>
         </header>

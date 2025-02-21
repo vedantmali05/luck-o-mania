@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
 
-const IconButton = ({ icon, clickEvent, className = "" }) => {
+const IconButton = ({ icon, className = "", ...rest }) => {
     return (
-        <button className={`icon ${className}`} onClick={clickEvent}>
+        <button className={`icon ${className}`} {...rest}>
             <i className={`bi ${icon}`}></i>
         </button>
     )

@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-const MenuButton = ({ icon, iconType = "icon", label, clickEvent, hasDropDown = false, isActive = false }) => {
+const MenuButton = ({ icon, iconType = "icon", label, onClick, hasDropDown = false, isActive = false }) => {
 
     let iconElem = <i className={`bi ${icon}`}></i>;
 
@@ -14,7 +14,7 @@ const MenuButton = ({ icon, iconType = "icon", label, clickEvent, hasDropDown = 
     }
 
     return (
-        <button className={`menu-item ${isActive ? "active" : ""}`} onClick={clickEvent}>
+        <button className={`menu-item ${isActive ? "active" : ""}`} onClick={onClick}>
             <span className="icon">{iconElem}</span>
             {label}
             {hasDropDown && <i className="bi bi-chevron-down"></i>}
@@ -25,7 +25,7 @@ const MenuButton = ({ icon, iconType = "icon", label, clickEvent, hasDropDown = 
 MenuButton.propTypes = {
     icon: PropTypes.string,
     label: PropTypes.string.isRequired,
-    clickEvent: PropTypes.func,
+    onClick: PropTypes.func,
     hasDropDown: PropTypes.bool,
     isActive: PropTypes.bool.isRequired
 }
