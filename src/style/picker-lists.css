@@ -1,5 +1,6 @@
 .picker-list-view {
   padding: 2.4rem 1.6rem;
+  max-width: 60rem;
 }
 
 .picker-list-view h2 {
@@ -7,16 +8,39 @@
   padding-left: 0.4rem;
 }
 
-.picker-list .drag-btn {
+.picker-list {
+  position: relative;
+}
+
+.picker-list li .drag-btn {
   border: none;
   cursor: grab;
+  position: relative;
+  overflow: visible;
+}
+
+.picker-list li .drag-btn::before {
+  content: "";
+  position: absolute;
+  aspect-ratio: 1;
+  top: -50%;
+  left: -50%;
+  transform: translate(-50%, -50%);
+}
+
+.picker-list li.dragging .drag-btn::before {
+  width: 100rem;
+}
+
+.picker-list li button.icon {
+  margin-bottom: auto;
 }
 
 .picker-list li:has(.drag-btn:hover) {
   background-color: hsl(var(--clr-neutral-150));
 }
 
-.picker-list button.icon:has(.bi-x) {
+.picker-list li button.icon:has(.bi-x) {
   border-radius: 50%;
 }
 
@@ -27,9 +51,15 @@
   gap: 1.2rem;
   margin-bottom: 0.4rem;
   padding: 0.8rem 0.4rem;
-  font-size: var(--fs-400);
+  font-size: var(--fs-300);
   border-radius: 0.2rem;
   background-color: hsl(var(--clr-neutral-100));
+  border: 1px solid transparent;
+  cursor: text;
+}
+
+.picker-list li:has(div:hover) {
+  border-color: hsl(var(--clr-neutral-200));
 }
 
 .picker-list li:first-of-type {
@@ -40,6 +70,34 @@
   border-radius: 0 0 1.6rem 1.6rem;
 }
 
-.picker-list div {
+.picker-list li div {
   flex: 1;
+  display: -webkit-box;
+  line-clamp: 3;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.picker-list li div:focus {
+  border: none;
+  outline: none;
+}
+
+.picker-list li:has(div:focus) {
+  border: 1px solid hsl(var(--clr-neutral-500));
+}
+
+.picker-list:has(li.dragging) li {
+  scale: 0.9;
+}
+
+.picker-list:has(li.dragging) li.dragging {
+  scale: 1.02;
+  position: relative;
+  top: var(--y);
+  transition: 0s;
+  z-index: 10;
+  border-radius: 0.2rem;
 }

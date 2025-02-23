@@ -8,26 +8,42 @@ const PickerListView = ({ title = "", listItems = [] }) => {
 
     // Functions to reorder list using Mouse Events
     let isDragging = false;
+    let startY = 0;
+    let offsetY = 0;
+    let draggedItemId = null;
 
     // Function to start dragging
-    function dragStart(index) {
+    function dragStart(index, liElem, e) {
         isDragging = true;
-        console.log("Down", index)
+        draggedItemId = index;
+        startY = e.clientY;
+        offsetY = 0;
+        liElem.classList.add("dragging");
     }
 
     // Function to end dragging
-    function dragEnd(index) {
+    function dragEnd(index, liElem) {
         isDragging = false;
-        console.log("Up", index)
+        draggedItemId = null;
+        liElem.classList.remove("dragging");
+        liElem.style.setProperty("--y", 0);
     }
 
     // Function to reorder after dropping
-    function dragDrop(index) {
-        if (isDragging) {
-            console.log("Move", index)
-        }
+    function dragDrop(index, liElem, e) {
+        if (!isDragging) return
+
+        offsetY = e.clientY - startY;
+        liElem.style.setProperty("--y", offsetY + "px");
     }
 
+    // Function to update an item
+    function updateItem(index, newTitle) {
+        pickerList.forEach((item) => {
+            if (index == item.id) item.title = newTitle
+        })
+        setPickerList(pickerList);
+    }
 
     // Function to delete an item
     function deleteItem(index) {
@@ -47,11 +63,18 @@ const PickerListView = ({ title = "", listItems = [] }) => {
                             <IconButton
                                 icon="bi-grip-vertical"
                                 className="drag-btn"
-                                onMouseDown={() => dragStart(item.id)}
-                                onMouseUp={() => dragEnd(item.id)}
-                                onMouseMove={() => dragDrop(item.id)}
+                                onMouseDown={(e) => dragStart(item.id, e.target.closest("li"), e)}
+                                onMouseUp={(e) => dragEnd(item.id, e.target.closest("li"), e)}
+                                onMouseLeave={(e) => dragEnd(item.id, e.target.closest("li"), e)}
+                                onMouseMove={(e) => dragDrop(item.id, e.target.closest("li"), e)}
                             />
-                            <div>{item.title}</div>
+                            <div
+                                title={item.title}
+                                contentEditable
+                                suppressContentEditableWarning={true}
+                                onInput={(e) => { updateItem(item.id, e.target.innerText) }}>
+                                {item.title}
+                            </div>
                             <IconButton icon="bi-x" onClick={() => { deleteItem(item.id) }} />
                         </li>
                     ))
