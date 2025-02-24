@@ -8,11 +8,11 @@ function App() {
   const [isNavActive, setIsNavActive] = useState(false);
 
   let tempArray = [
-    { id: 1, title: "Apple", isActive: true },
-    { id: 2, title: "Banana", isActive: true },
-    { id: 3, title: "Cherry", isActive: false },
-    { id: 4, title: "Dragonfruit", isActive: true },
-    { id: 5, title: "Elderberry", isActive: false },
+    { title: "Apple", isActive: true },
+    { title: "Banana", isActive: true },
+    { title: "Cherry", isActive: false },
+    { title: "Dragonfruit", isActive: true },
+    { title: "Elderberry", isActive: false },
   ];
 
   return (<>
