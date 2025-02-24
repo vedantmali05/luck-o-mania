@@ -2,20 +2,27 @@ import { useState, useRef } from "react";
 import PropTypes from "prop-types";
 import IconButton from "./components/IconButton";
 
-const PickerListView = ({ title = "", listItems = [], allowInsertion = true }) => {
+const PickerListView = ({ title = "", listItems = [], readonly = false }) => {
 
     const listTitleRef = useRef(null);
     const insertItemRef = useRef(null);
+    const pickerListViewRef = useRef(null);
 
+    const [pickerListTitle, setPickerListTitle] = useState(title);
     const [pickerList, setPickerList] = useState(listItems);
 
+    // /////////////////////
     // Functions to reorder list using Mouse Events
+    // ////////////////////
+
     let isDragging = false;
     let startY = 0;
     let offsetY = 0;
 
     // Function to start dragging
     function dragStart(index, liElem, e) {
+        if (readonly) return;
+        
         isDragging = true;
         startY = e.clientY;
         offsetY = 0;
@@ -24,6 +31,8 @@ const PickerListView = ({ title = "", listItems = [], allowInsertion = true }) =
 
     // Function to end dragging
     function dragEnd(index, liElem, e) {
+        if (readonly) return;
+
         isDragging = false;
         liElem.classList.remove("dragging");
         liElem.style.setProperty("--y", 0);
@@ -53,7 +62,7 @@ const PickerListView = ({ title = "", listItems = [], allowInsertion = true }) =
 
     // Function to reorder after dropping
     function dragDrop(index, liElem, e) {
-        if (!isDragging) return
+        if (readonly || !isDragging) return
 
         offsetY = e.clientY - startY;
         liElem.style.setProperty("--y", offsetY + "px");
@@ -62,7 +71,7 @@ const PickerListView = ({ title = "", listItems = [], allowInsertion = true }) =
 
     // Function to add new item
     function insertItem() {
-        if (!insertItemRef.current || !insertItemRef.current.value) return;
+        if (readonly || !insertItemRef.current || !insertItemRef.current.value) return;
 
         let updatedList = [...pickerList];
         updatedList.push({
@@ -71,10 +80,12 @@ const PickerListView = ({ title = "", listItems = [], allowInsertion = true }) =
         })
         insertItemRef.current.value = "";
         setPickerList(updatedList);
+        pickerListViewRef.current.scrollTop = pickerListViewRef.current.clientHeight + 64;
     }
 
     // Function to update an item
     function updateItem(index, newTitle) {
+        if (readonly) return;
         let updatedList = [...pickerList];
         updatedList.forEach((item, i) => {
             if (index == i) item.title = newTitle
@@ -84,64 +95,95 @@ const PickerListView = ({ title = "", listItems = [], allowInsertion = true }) =
 
     // Function to delete an item
     function deleteItem(index) {
+        if (readonly) return;
         const updatedList = pickerList.filter((item, i) => i !== index)
         setPickerList(updatedList);
     }
 
     return (
-        <section className="picker-list-view" onScroll={(e) => {
-            if (listTitleRef.current) {
-                listTitleRef.current.classList.toggle("scrolled", e.target.scrollTop > listTitleRef.current.clientHeight)
-            }
-        }}>
-            <h2 ref={listTitleRef}>{title}</h2>
+        <section className="picker-list-view"
+            ref={pickerListViewRef}
+            // Handle Heading size on scrolls
+            onScroll={(e) => {
+                let heading = listTitleRef.current
+                if (heading) {
+                    heading.classList.toggle("scrolled", e.target.scrollTop > heading.clientHeight)
+                }
+            }}>
 
+            {/* Heading (Title of the list) */}
+            <h2
+                ref={listTitleRef}
+                contentEditable={!readonly}
+                suppressContentEditableWarning={true}
+                onBlur={(e) => { setPickerListTitle(e.target.innerText.trim()) }}
+                onKeyDown={(e) => { if (e.key == "Enter") e.preventDefault(); }}
+            >{title}</h2>
+
+            {/* PICKER LIST */}
             <ul className="picker-list">
                 {
                     pickerList.map((item, index) => (
+                        // Each item in the list
                         <li key={index}>
+
+                            {/* Drag to reorder button */}
                             <IconButton
                                 icon="bi-grip-vertical"
                                 className="drag-btn"
+                                // Disable drag button if list has only one item.
+                                disabled={pickerList.length <= 1 || readonly}
+
+
+                                // Drag and drop
                                 onMouseDown={(e) => dragStart(index, e.target.closest("li"), e)}
                                 onMouseUp={(e) => dragEnd(index, e.target.closest("li"), e)}
                                 onMouseMove={(e) => dragDrop(index, e.target.closest("li"), e)}
-                                disabled={pickerList.length <= 1}
                             />
+
+                            {/* Item contents */}
                             <div
-                                title={item.title} // This isn't being updated on updateItem
-                                contentEditable
+                                // Editable Element
+                                contentEditable={!readonly}
                                 suppressContentEditableWarning={true}
+                                // Update on blur
                                 onBlur={(e) => { updateItem(index, e.target.innerText) }}
+                                title={item.title}
                             >
                                 {item.title}
                             </div>
+
+                            {/* Delete item button */}
                             <IconButton
                                 icon="bi-x"
+                                disabled={readonly}
                                 onClick={() => { deleteItem(index) }}
-                                disabled={pickerList.length <= 1}
                             />
                         </li>
                     ))
                 }
             </ul>
 
+            {/* Add new item in the list */}
             {
-                allowInsertion &&
+                // If insertion is allowed, or this is readonly
+                !readonly &&
+
                 <div className="item-insertion-box">
+                    {/* Insert new item textarea */}
                     <textarea
-                        name="item_insertion"
-                        id="item_insertion"
+                        ref={insertItemRef}
                         autoFocus={true}
                         placeholder="Add new item..."
+                        // Insert item on enter press
                         onKeyDown={(e) => {
                             if (e.key == "Enter") {
                                 e.preventDefault();
                                 insertItem()
                             }
                         }}
-                        ref={insertItemRef}
                     ></textarea>
+                    {/* Insert item on button click */}
                     <IconButton
                         icon="bi-arrow-up"
                         className="insert-btn"
@@ -156,7 +198,7 @@ const PickerListView = ({ title = "", listItems = [], allowInsertion = true }) =
 PickerListView.propTypes = {
     title: PropTypes.string.isRequired,
     listItems: PropTypes.array,
-    allowInsertion: PropTypes.bool
+    readonly: PropTypes.bool
 }
 
 
