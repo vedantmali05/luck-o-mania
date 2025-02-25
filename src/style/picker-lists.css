@@ -40,6 +40,10 @@
   overflow: visible;
 }
 
+.picker-list li .drag-btn:focus {
+  box-shadow: none;
+}
+
 .picker-list li .drag-btn::before {
   content: "";
   position: absolute;

@@ -1,17 +1,29 @@
 import PropTypes from "prop-types";
 import IconButton from "./components/IconButton";
 
-const PickerListCard = ({ data = {} }) => {
+const PickerListCard = ({ cardData = {} }) => {
 
-    if (!data.emoji) throw new Error("PickerListCard expects an emoji.")
-    if (!data.title) throw new Error("PickerListCard expects a title.")
-    if (!data.count && data.count != 0) throw new Error("PickerListCard expects a count.")
+    if (!cardData.emoji) throw new Error("PickerListCard expects an emoji.")
+    if (!cardData.title) throw new Error("PickerListCard expects a title.")
+
+    // Create preview list
+    let count = cardData.items.length;
+    let previewList = null;
+
+    if (!cardData.items || count == 0) {
+        previewList = <span className="empty-list">Nothing to see here...</span>
+    }
+    else {
+        previewList = cardData.items.map((item, i) => (
+            <li key={i}>{item.title}</li>
+        ))
+
+    }
 
     // Format Item count string
-    let countStr = `${data.count} item`
-    if (data.count > 1) countStr += "s";
-    else if (data.count <= 0) countStr = "Empty list."
-
+    let countStr = `${count} item`
+    if (count > 1) countStr += "s";
+    else if (count <= 0) countStr = "Empty list."
 
     return (
 
@@ -20,17 +32,20 @@ const PickerListCard = ({ data = {} }) => {
             onClick={() => console.log("Hello")}>
 
             {/* Preview */}
-            <div className="preview">
-                <span className="emoji-gradient">{data.emoji}</span>
-            </div>
+            <ul className="preview" aria-hidden="true">
+                <span className="emoji-gradient">{cardData.emoji}</span>
+                <div className="list">
+                    {previewList}
+                </div>
+            </ul>
 
             <div className="details">
                 {/* Emoji */}
-                <span className="emoji">{data.emoji}</span>
+                <span className="emoji">{cardData.emoji}</span>
 
                 {/* Title and Count */}
                 <div>
-                    <div className="title" title={data.title} >{data.title}</div>
+                    <div className="title" title={cardData.title} >{cardData.title}</div>
                     <div className="count">{countStr}</div>
                 </div>
 

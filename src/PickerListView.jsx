@@ -2,14 +2,18 @@ import { useState, useRef } from "react";
 import PropTypes from "prop-types";
 import IconButton from "./components/IconButton";
 
-const PickerListView = ({ title = "", listItems = [], readonly = false }) => {
+const PickerListView = ({ listData = {} }) => {
+
+    if (!listData.emoji) throw new Error("PickerListView expects an emoji.")
+    if (!listData.title) throw new Error("PickerListView expects a title.")
+    if (!listData.items) listData.items = [];
 
     const listTitleRef = useRef(null);
     const insertItemRef = useRef(null);
     const pickerListViewRef = useRef(null);
 
-    const [pickerListTitle, setPickerListTitle] = useState(title);
-    const [pickerList, setPickerList] = useState(listItems);
+    const [pickerListTitle, setPickerListTitle] = useState(listData.title);
+    const [pickerList, setPickerList] = useState(listData.items);
 
     // /////////////////////
     // Functions to reorder list using Mouse Events
@@ -21,8 +25,8 @@ const PickerListView = ({ title = "", listItems = [], readonly = false }) => {
 
     // Function to start dragging
     function dragStart(index, liElem, e) {
-        if (readonly) return;
-        
+        if (listData.readonly) return;
+
         isDragging = true;
         startY = e.clientY;
         offsetY = 0;
@@ -31,7 +35,7 @@ const PickerListView = ({ title = "", listItems = [], readonly = false }) => {
 
     // Function to end dragging
     function dragEnd(index, liElem, e) {
-        if (readonly) return;
+        if (listData.readonly) return;
 
         isDragging = false;
         liElem.classList.remove("dragging");
@@ -62,7 +66,7 @@ const PickerListView = ({ title = "", listItems = [], readonly = false }) => {
 
     // Function to reorder after dropping
     function dragDrop(index, liElem, e) {
-        if (readonly || !isDragging) return
+        if (listData.readonly || !isDragging) return
 
         offsetY = e.clientY - startY;
         liElem.style.setProperty("--y", offsetY + "px");
@@ -71,7 +75,7 @@ const PickerListView = ({ title = "", listItems = [], readonly = false }) => {
 
     // Function to add new item
     function insertItem() {
-        if (readonly || !insertItemRef.current || !insertItemRef.current.value) return;
+        if (listData.readonly || !insertItemRef.current || !insertItemRef.current.value) return;
 
         let updatedList = [...pickerList];
         updatedList.push({
@@ -85,7 +89,7 @@ const PickerListView = ({ title = "", listItems = [], readonly = false }) => {
 
     // Function to update an item
     function updateItem(index, newTitle) {
-        if (readonly) return;
+        if (listData.readonly) return;
         let updatedList = [...pickerList];
         updatedList.forEach((item, i) => {
             if (index == i) item.title = newTitle
@@ -95,7 +99,7 @@ const PickerListView = ({ title = "", listItems = [], readonly = false }) => {
 
     // Function to delete an item
     function deleteItem(index) {
-        if (readonly) return;
+        if (listData.readonly) return;
         const updatedList = pickerList.filter((item, i) => i !== index)
         setPickerList(updatedList);
     }
@@ -114,11 +118,11 @@ const PickerListView = ({ title = "", listItems = [], readonly = false }) => {
             {/* Heading (Title of the list) */}
             <h2
                 ref={listTitleRef}
-                contentEditable={!readonly}
+                contentEditable={!listData.readonly}
                 suppressContentEditableWarning={true}
                 onBlur={(e) => { setPickerListTitle(e.target.innerText.trim()) }}
                 onKeyDown={(e) => { if (e.key == "Enter") e.preventDefault(); }}
-            >{title}</h2>
+            >{pickerListTitle}</h2>
 
             {/* PICKER LIST */}
             <ul className="picker-list">
@@ -132,7 +136,7 @@ const PickerListView = ({ title = "", listItems = [], readonly = false }) => {
                                 icon="bi-grip-vertical"
                                 className="drag-btn"
                                 // Disable drag button if list has only one item.
-                                disabled={pickerList.length <= 1 || readonly}
+                                disabled={pickerList.length <= 1 || listData.readonly}
 
 
                                 // Drag and drop
@@ -144,7 +148,7 @@ const PickerListView = ({ title = "", listItems = [], readonly = false }) => {
                             {/* Item contents */}
                             <div
                                 // Editable Element
-                                contentEditable={!readonly}
+                                contentEditable={!listData.readonly}
                                 suppressContentEditableWarning={true}
                                 // Update on blur
                                 onBlur={(e) => { updateItem(index, e.target.innerText) }}
@@ -156,7 +160,7 @@ const PickerListView = ({ title = "", listItems = [], readonly = false }) => {
                             {/* Delete item button */}
                             <IconButton
                                 icon="bi-x"
-                                disabled={readonly}
+                                disabled={listData.readonly}
                                 onClick={() => { deleteItem(index) }}
                             />
                         </li>
@@ -166,8 +170,8 @@ const PickerListView = ({ title = "", listItems = [], readonly = false }) => {
 
             {/* Add new item in the list */}
             {
-                // If insertion is allowed, or this is readonly
-                !readonly &&
+                // If insertion is allowed, or this is listData.readonly
+                !listData.readonly &&
 
                 <div className="item-insertion-box">
                     {/* Insert new item textarea */}
@@ -196,9 +200,7 @@ const PickerListView = ({ title = "", listItems = [], readonly = false }) => {
 
 
 PickerListView.propTypes = {
-    title: PropTypes.string.isRequired,
-    listItems: PropTypes.array,
-    readonly: PropTypes.bool
+    listData: PropTypes.object
 }
 
 
