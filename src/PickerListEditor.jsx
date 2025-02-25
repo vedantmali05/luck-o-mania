@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import PropTypes from "prop-types";
 import IconButton from "./components/IconButton";
 
-const PickerListView = ({ listData = {} }) => {
+const PickerListEditor = ({ listData = {} }) => {
 
     if (!listData.emoji) throw new Error("PickerListView expects an emoji.")
     if (!listData.title) throw new Error("PickerListView expects a title.")
@@ -105,7 +105,7 @@ const PickerListView = ({ listData = {} }) => {
     }
 
     return (
-        <section className="picker-list-view"
+        <section className="picker-list-editor"
             ref={pickerListViewRef}
             // Handle Heading size on scrolls
             onScroll={(e) => {
@@ -116,13 +116,14 @@ const PickerListView = ({ listData = {} }) => {
             }}>
 
             {/* Heading (Title of the list) */}
-            <h2
+            <h3
+                className="picker-list-title"
                 ref={listTitleRef}
                 contentEditable={!listData.readonly}
                 suppressContentEditableWarning={true}
                 onBlur={(e) => { setPickerListTitle(e.target.innerText.trim()) }}
                 onKeyDown={(e) => { if (e.key == "Enter") e.preventDefault(); }}
-            >{pickerListTitle}</h2>
+            >{pickerListTitle}</h3>
 
             {/* PICKER LIST */}
             <ul className="picker-list">
@@ -199,9 +200,9 @@ const PickerListView = ({ listData = {} }) => {
 }
 
 
-PickerListView.propTypes = {
+PickerListEditor.propTypes = {
     listData: PropTypes.object
 }
 
 
-export default PickerListView
+export default PickerListEditor

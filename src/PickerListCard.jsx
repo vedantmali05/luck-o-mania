@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import IconButton from "./components/IconButton";
 
-const PickerListCard = ({ cardData = {} }) => {
+const PickerListCard = ({ cardData = {}, setActiveList }) => {
 
     if (!cardData.emoji) throw new Error("PickerListCard expects an emoji.")
     if (!cardData.title) throw new Error("PickerListCard expects a title.")
@@ -29,7 +29,10 @@ const PickerListCard = ({ cardData = {} }) => {
 
         <div
             className="picker-list-card"
-            onClick={() => console.log("Hello")}>
+            onClick={() => {
+                setActiveList(null);
+                setTimeout(() => setActiveList(cardData), 1)
+            }}>
 
             {/* Preview */}
             <ul className="preview" aria-hidden="true">
@@ -58,7 +61,7 @@ const PickerListCard = ({ cardData = {} }) => {
 }
 
 PickerListCard.propTypes = {
-    // data: PropTypes.object.isRequired
+    cardData: PropTypes.object.isRequired
 }
 
 

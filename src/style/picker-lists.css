@@ -1,4 +1,14 @@
-.picker-list-view {
+.picker-list-dialog {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.picker-list-dialog.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.picker-list-editor {
   padding: 0 1.6rem 2.4rem 1.6rem;
   max-width: 60rem;
   height: calc(100vh - var(--header-height));
@@ -7,7 +17,7 @@
   background-color: hsl(var(--clr-neutral-150));
 }
 
-.picker-list-view h2 {
+.picker-list-editor .picker-list-title {
   margin-bottom: 1.6rem;
   padding-left: 0.4rem;
   transition: 0.1s;
@@ -22,7 +32,7 @@
   padding-bottom: 0.8rem;
 }
 
-.picker-list-view h2.scrolled {
+.picker-list-editor .picker-list-title.scrolled {
   font-size: var(--fs-500);
 }
 
@@ -106,7 +116,7 @@
   word-wrap: break-word;
 }
 
-.picker-list-view h2:focus,
+.picker-list-editor .picker-list-title:focus,
 .picker-list li div:focus {
   border: none;
   outline: none;
@@ -130,7 +140,7 @@
   border-radius: 0.2rem;
 }
 
-.picker-list-view .item-insertion-box {
+.picker-list-editor .item-insertion-box {
   position: sticky;
   left: -1.6rem;
   margin-left: -1.6rem;
@@ -149,7 +159,7 @@
   gap: 1.6rem;
 }
 
-.picker-list-view .item-insertion-box textarea {
+.picker-list-editor .item-insertion-box textarea {
   flex: 1;
   border: none;
   resize: none;
@@ -157,12 +167,12 @@
   background-color: transparent;
 }
 
-.picker-list-view .item-insertion-box textarea:focus {
+.picker-list-editor .item-insertion-box textarea:focus {
   border: none;
   outline: none;
 }
 
-.picker-list-view .item-insertion-box .insert-btn {
+.picker-list-editor .item-insertion-box .insert-btn {
   margin-bottom: auto;
   background-color: hsl(var(--clr-neutral-900));
   border-radius: 50%;

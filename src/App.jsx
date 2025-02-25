@@ -1,17 +1,14 @@
 import { useState } from "react";
 import Header from "./Header.jsx"
 import Navigation from "./Navigation.jsx";
-import PickerListView from "./PickerListView.jsx";
 import PickerListCard from "./PickerListCard.jsx";
+import PickerListDialog from "./PickerListDialog.jsx"
 
 function App() {
-
-  const [isNavActive, setIsNavActive] = useState(false);
-
   let tempListData =
   {
-    emoji: "🤣",
-    title: "This is my list and this is a long",
+    emoji: "🍉",
+    title: "Fruits List",
     readonly: false,
     items: [
       { title: "Apple", isActive: true },
@@ -22,53 +19,27 @@ function App() {
     ]
   }
 
+  let tempListData2 =
+  {
+    emoji: "🎲",
+    title: "Board Game List",
+    readonly: false,
+    items: [
+      { title: "Ludo", isActive: true },
+      { title: "Snakes & Ladder", isActive: false },
+    ]
+  }
 
-  let tempCardData = {
-    emoji: "🤣",
-    title: "Fun list. An apple a day keeps a doctor away",
-    count: 12,
-    previewItems: ["Item 1", "Item 2", "Item 3", "Item 4"]
-  }
-  let tempCardData2 = {
-    emoji: "☸️",
-    title: "Fun list. An apple a day keeps a doctor away",
-    count: 12,
-    previewItems: ["Item 1"]
-  }
-  let tempCardData3 = {
-    emoji: "🧛",
-    title: "Fun list. An apple a day keeps a doctor away",
-    count: 12,
-    previewItems: []
-  }
-  let tempCardData4 = {
-    emoji: "🧃",
-    title: "Fun list. An apple a day keeps a doctor away",
-    count: 12,
-    previewItems: ["Item 1", "Item 2",
-      "Item 3",
-      "Item 3",
-      "Item 3",
-      "Item 3",
-      "Item 3",
-      "Item 3",
-      "Item 3",
-      "Item 3",
-      "Item 3",
-      "Item 3",
-      "Item 3",
-      "Item 3",
-      "Item 4"]
-  }
+  const [isNavActive, setIsNavActive] = useState(false);
+  const [activeList, setActiveList] = useState(null);
+
 
   return (<>
     <Header setIsNavActive={setIsNavActive} />
     <Navigation isNavActive={isNavActive} setIsNavActive={setIsNavActive} />
-    {/* <PickerListView listData={tempListData} /> */}
-    <PickerListCard cardData={tempListData} />
-    {/* <PickerListCard data={tempCardData2} />
-    <PickerListCard data={tempCardData3} />
-    <PickerListCard data={tempCardData4} /> */}
+    <PickerListCard cardData={tempListData} setActiveList={setActiveList} />
+    <PickerListCard cardData={tempListData2} setActiveList={setActiveList} />
+    <PickerListDialog activeList={activeList} setActiveList={setActiveList} />
   </>
   );
 
