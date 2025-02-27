@@ -17,11 +17,20 @@ function App() {
       { title: "Cherry", isActive: false },
       { title: "Dragonfruit", isActive: true },
       { title: "Elderberry", isActive: false },
+      // { title: "Orange", isActive: false },
+      // { title: "Orange", isActive: false },
+      // { title: "Orange", isActive: false },
+      // { title: "Orange", isActive: false },
+      // { title: "Orange", isActive: false },
+      // { title: "Orange", isActive: false },
+      // { title: "Orange", isActive: false },
+      // { title: "Orange", isActive: false },
+      // { title: "Orange", isActive: false },
       { title: "Orange", isActive: false },
       { title: "Grapes", isActive: false },
       { title: "Mango", isActive: false },
       { title: "Blueberry", isActive: false },
-      { title: "Papaya", isActive: false },
+      { title: "Papaya is yellow in color. It contains multiple seeds.", isActive: false },
     ]
   }
 
