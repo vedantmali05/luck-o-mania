@@ -1,21 +1,15 @@
 import PropTypes from "prop-types";
+import Icon from "./Icon.jsx";
 
 const MenuButton = ({ icon, iconType = "icon", label, onClick, hasDropDown = false, isActive = false }) => {
 
-    let iconElem = <i className={`bi ${icon}`}></i>;
-
-    switch (iconType.toLowerCase()) {
-        case "text":
-            iconElem = icon
-            break;
-        case "image":
-            iconElem = <img src={icon} alt={label} />
-            break;
-    }
-
     return (
         <button className={`menu-item ${isActive ? "active" : ""}`} onClick={onClick}>
-            <span className="icon">{iconElem}</span>
+            <span className="icon">
+                {
+                    <Icon icon={icon} iconType={iconType} />
+                }
+            </span>
             {label}
             {hasDropDown && <i className="bi bi-chevron-down"></i>}
         </button>

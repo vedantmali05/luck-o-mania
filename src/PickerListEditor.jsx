@@ -1,6 +1,8 @@
 import { useState, useRef } from "react";
 import PropTypes from "prop-types";
 import IconButton from "./components/IconButton";
+import CTAButton from "./components/CTAButton";
+import { setDymanicHeight } from "./utils/utils";
 
 const PickerListEditor = ({ listData = {} }) => {
 
@@ -8,9 +10,9 @@ const PickerListEditor = ({ listData = {} }) => {
     if (!listData.title) throw new Error("PickerListView expects a title.")
     if (!listData.items) listData.items = [];
 
-    const listTitleRef = useRef(null);
+    const editorHeaderRef = useRef(null);
     const insertItemRef = useRef(null);
-    const pickerListViewRef = useRef(null);
+    const editorRef = useRef(null);
 
     const [pickerListTitle, setPickerListTitle] = useState(listData.title);
     const [pickerList, setPickerList] = useState(listData.items);
@@ -84,7 +86,7 @@ const PickerListEditor = ({ listData = {} }) => {
         })
         insertItemRef.current.value = "";
         setPickerList(updatedList);
-        pickerListViewRef.current.scrollTop = pickerListViewRef.current.clientHeight + 64;
+        editorRef.current.scrollTop = editorRef.current.clientHeight + 64;
     }
 
     // Function to update an item
@@ -106,25 +108,35 @@ const PickerListEditor = ({ listData = {} }) => {
 
     return (
         <section className="picker-list-editor"
-            ref={pickerListViewRef}
+            ref={editorRef}
             // Handle Heading size on scrolls
             onScroll={(e) => {
-                let heading = listTitleRef.current
-                if (heading) {
-                    heading.classList.toggle("scrolled", e.target.scrollTop > heading.clientHeight)
+                let header = editorHeaderRef.current
+                if (header) {
+                    header.classList.toggle("scrolled", e.target.scrollTop > header.clientHeight)
                 }
             }}>
 
-            {/* Heading (Title of the list) */}
-            <h3
-                className="picker-list-title"
-                ref={listTitleRef}
-                contentEditable={!listData.readonly}
-                suppressContentEditableWarning={true}
-                onBlur={(e) => { setPickerListTitle(e.target.innerText.trim()) }}
-                onKeyDown={(e) => { if (e.key == "Enter") e.preventDefault(); }}
-            >{pickerListTitle}</h3>
+            {/* Editor Header */}
+            <div className="editor-header"
+                ref={editorHeaderRef}
+            >
 
+                {/* Heading (Title of the list) */}
+                <h3
+                    className="picker-list-title"
+                    contentEditable={!listData.readonly}
+                    suppressContentEditableWarning={true}
+                    onBlur={(e) => { setPickerListTitle(e.target.innerText.trim()) }}
+                    onKeyDown={(e) => {
+                        setDymanicHeight(e);
+                        if (e.key == "Enter") e.preventDefault();
+                    }}
+                >{pickerListTitle}</h3>
+
+                {/* Load to Spinner Button */}
+                <CTAButton icon="☸️" iconType="emoji" label="Spin in Wheel" className="primary" />
+            </div>
             {/* PICKER LIST */}
             <ul className="picker-list">
                 {
@@ -182,6 +194,7 @@ const PickerListEditor = ({ listData = {} }) => {
                         placeholder="Add new item..."
                         // Insert item on enter press
                         onKeyDown={(e) => {
+                            setDymanicHeight(e);
                             if (e.key == "Enter") {
                                 e.preventDefault();
                                 insertItem()

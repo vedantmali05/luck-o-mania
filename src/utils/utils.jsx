@@ -1,4 +1,4 @@
-function getArrayIndexByKey(arr, key, value) {
+export function getArrayIndexByKey(arr, key, value) {
 
     if (!arr) {
         throw new Error("Please provide a valid array");
@@ -15,4 +15,7 @@ function getArrayIndexByKey(arr, key, value) {
     return index;
 }
 
-export default getArrayIndexByKey;
+export function setDymanicHeight(e) {
+    e.target.style.height = "auto";
+    e.target.style.height = e.target.scrollHeight + "px";
+}

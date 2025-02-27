@@ -2,7 +2,8 @@ import { useState } from "react";
 import Header from "./Header.jsx"
 import Navigation from "./Navigation.jsx";
 import PickerListCard from "./PickerListCard.jsx";
-import PickerListDialog from "./PickerListDialog.jsx"
+import PickerListDialog from "./PickerListDialog.jsx";
+import SpinningWheel from "./SpinningWheel.jsx";
 
 function App() {
   let tempListData =
@@ -16,6 +17,11 @@ function App() {
       { title: "Cherry", isActive: false },
       { title: "Dragonfruit", isActive: true },
       { title: "Elderberry", isActive: false },
+      { title: "Orange", isActive: false },
+      { title: "Grapes", isActive: false },
+      { title: "Mango", isActive: false },
+      { title: "Blueberry", isActive: false },
+      { title: "Papaya", isActive: false },
     ]
   }
 
@@ -37,9 +43,10 @@ function App() {
   return (<>
     <Header setIsNavActive={setIsNavActive} />
     <Navigation isNavActive={isNavActive} setIsNavActive={setIsNavActive} />
-    <PickerListCard cardData={tempListData} setActiveList={setActiveList} />
+    <SpinningWheel activeList={tempListData} />
+    {/* <PickerListCard cardData={tempListData} setActiveList={setActiveList} />
     <PickerListCard cardData={tempListData2} setActiveList={setActiveList} />
-    <PickerListDialog activeList={activeList} setActiveList={setActiveList} />
+    <PickerListDialog activeList={activeList} setActiveList={setActiveList} /> */}
   </>
   );
 

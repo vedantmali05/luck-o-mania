@@ -34,7 +34,7 @@ const Navigation = ({ isNavActive, setIsNavActive }) => {
                         <MenuButton
                             key={key}
                             icon={icon}
-                            iconType="text"
+                            iconType="emoji"
                             label={label}
                             isActive={activeMenu === key}
                             onClick={() => setActiveMenu(key)}
