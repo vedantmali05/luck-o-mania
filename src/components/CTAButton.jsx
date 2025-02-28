@@ -17,7 +17,7 @@ CTAButton.propTypes = {
     icon: PropTypes.string,
     label: PropTypes.string.isRequired,
     onClick: PropTypes.func,
-    className: PropTypes.string,
+    className: PropTypes.string.isRequired,
 }
 
 export default CTAButton;

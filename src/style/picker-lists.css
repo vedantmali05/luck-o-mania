@@ -34,7 +34,7 @@
   display: flex;
   align-items: start;
   gap: 1.6rem;
-  background-color: hsla(var(--clr-neutral-100), 0.0);
+  background-color: hsla(var(--clr-neutral-100), 0);
   backdrop-filter: blur(8px);
 }
 
