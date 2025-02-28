@@ -38,8 +38,8 @@ function App() {
   {
     emoji: "🔢",
     title: "Number List",
-    readonly: false,
-    items: Array.from({ length: 5 }, (_, i) => ({ title: (i + 1).toString(), isActive: false }))
+    readonly: true,
+    items: Array.from({ length: 100 }, (_, i) => ({ title: (i + 1).toString(), isActive: false }))
   }
 
   const [isNavActive, setIsNavActive] = useState(false);

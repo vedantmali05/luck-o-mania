@@ -6,7 +6,6 @@
   opacity: 0;
   visibility: hidden;
   width: 100%;
-  max-width: 60rem;
   border: 1px solid hsl(var(--clr-neutral-150));
   border-top: none;
   border-bottom: none;
@@ -15,6 +14,15 @@
 .picker-list-dialog.active {
   opacity: 1;
   visibility: visible;
+}
+
+.picker-list-editor.readonly :is(.drag-btn, button.icon:has(.bi-x)) {
+  opacity: 0;
+}
+
+.picker-list-editor.readonly li {
+  pointer-events: none;
+  user-select: none;
 }
 
 .picker-list-editor {

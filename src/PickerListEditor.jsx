@@ -16,6 +16,7 @@ const PickerListEditor = ({ listData = {} }) => {
 
     const [pickerListTitle, setPickerListTitle] = useState(listData.title);
     const [pickerList, setPickerList] = useState(listData.items);
+    const [isReadonly, setIsReadonly] = useState(listData.readonly);
 
     // /////////////////////
     // Functions to reorder list using Mouse Events
@@ -27,7 +28,7 @@ const PickerListEditor = ({ listData = {} }) => {
 
     // Function to start dragging
     function dragStart(index, liElem, e) {
-        if (listData.readonly) return;
+        if (isReadonly) return;
 
         isDragging = true;
         startY = e.clientY;
@@ -37,7 +38,7 @@ const PickerListEditor = ({ listData = {} }) => {
 
     // Function to end dragging
     function dragEnd(index, liElem, e) {
-        if (listData.readonly) return;
+        if (isReadonly) return;
 
         isDragging = false;
         liElem.classList.remove("dragging");
@@ -68,7 +69,7 @@ const PickerListEditor = ({ listData = {} }) => {
 
     // Function to reorder after dropping
     function dragDrop(index, liElem, e) {
-        if (listData.readonly || !isDragging) return
+        if (isReadonly || !isDragging) return
 
         offsetY = e.clientY - startY;
         liElem.style.setProperty("--y", offsetY + "px");
@@ -77,7 +78,7 @@ const PickerListEditor = ({ listData = {} }) => {
 
     // Function to add new item
     function insertItem() {
-        if (listData.readonly || !insertItemRef.current || !insertItemRef.current.value) return;
+        if (isReadonly || !insertItemRef.current || !insertItemRef.current.value) return;
 
         let updatedList = [...pickerList];
         updatedList.push({
@@ -91,7 +92,7 @@ const PickerListEditor = ({ listData = {} }) => {
 
     // Function to update an item
     function updateItem(index, newTitle) {
-        if (listData.readonly) return;
+        if (isReadonly) return;
         let updatedList = [...pickerList];
         updatedList.forEach((item, i) => {
             if (index == i) item.title = newTitle
@@ -101,13 +102,13 @@ const PickerListEditor = ({ listData = {} }) => {
 
     // Function to delete an item
     function deleteItem(index) {
-        if (listData.readonly) return;
+        if (isReadonly) return;
         const updatedList = pickerList.filter((item, i) => i !== index)
         setPickerList(updatedList);
     }
 
     return (
-        <section className="picker-list-editor"
+        <section className={`picker-list-editor ${isReadonly ? "readonly" : ""}`}
             ref={editorRef}
             // Handle Heading size on scrolls
             onScroll={(e) => {
@@ -125,7 +126,7 @@ const PickerListEditor = ({ listData = {} }) => {
                 {/* Heading (Title of the list) */}
                 <h3
                     className="picker-list-title"
-                    contentEditable={!listData.readonly}
+                    contentEditable={!isReadonly}
                     suppressContentEditableWarning={true}
                     onBlur={(e) => { setPickerListTitle(e.target.innerText.trim()) }}
                     onKeyDown={(e) => {
@@ -135,7 +136,28 @@ const PickerListEditor = ({ listData = {} }) => {
                 >{pickerListTitle}</h3>
 
                 {/* Load to Spinner Button */}
-                <CTAButton icon="☸️" iconType="emoji" label="Spin in Wheel" className="primary" />
+                {
+                    !isReadonly &&
+                    <CTAButton icon="☸️"
+                        iconType="emoji"
+                        label="Spin in Wheel"
+                        className="primary"
+                        onClick={() => {
+                            setIsReadonly(i => i = true);
+                        }}
+                    />
+                }
+                {
+                    isReadonly &&
+                    <CTAButton icon="✏️"
+                        iconType="emoji"
+                        label="Edit List"
+                        className="ghost"
+                        onClick={() => {
+                            setIsReadonly(i => i = false);
+                        }}
+                    />
+                }
             </div>
             {/* PICKER LIST */}
             <ul className="picker-list">
@@ -149,7 +171,7 @@ const PickerListEditor = ({ listData = {} }) => {
                                 icon="bi-grip-vertical"
                                 className="drag-btn"
                                 // Disable drag button if list has only one item.
-                                disabled={pickerList.length <= 1 || listData.readonly}
+                                disabled={pickerList.length <= 1 || isReadonly}
 
 
                                 // Drag and drop
@@ -161,7 +183,7 @@ const PickerListEditor = ({ listData = {} }) => {
                             {/* Item contents */}
                             <div
                                 // Editable Element
-                                contentEditable={!listData.readonly}
+                                contentEditable={!isReadonly}
                                 suppressContentEditableWarning={true}
                                 // Update on blur
                                 onBlur={(e) => { updateItem(index, e.target.innerText) }}
@@ -173,7 +195,7 @@ const PickerListEditor = ({ listData = {} }) => {
                             {/* Delete item button */}
                             <IconButton
                                 icon="bi-x"
-                                disabled={listData.readonly}
+                                disabled={isReadonly}
                                 onClick={() => { deleteItem(index) }}
                             />
                         </li>
@@ -183,8 +205,8 @@ const PickerListEditor = ({ listData = {} }) => {
 
             {/* Add new item in the list */}
             {
-                // If insertion is allowed, or this is listData.readonly
-                !listData.readonly &&
+                // If insertion is allowed, or this is isReadonly
+                !isReadonly &&
 
                 <div className="item-insertion-box">
                     {/* Insert new item textarea */}
@@ -214,7 +236,8 @@ const PickerListEditor = ({ listData = {} }) => {
 
 
 PickerListEditor.propTypes = {
-    listData: PropTypes.object
+    listData: PropTypes.object,
+    readonly: PropTypes.bool
 }
 
 

@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import CTAButton from "./components/CTAButton.jsx";
+import PickerListEditor from "./PickerListEditor.jsx"
 
 const PickerWheel = ({ activeList }) => {
     const wheelRef = useRef();
@@ -130,7 +131,7 @@ const PickerWheel = ({ activeList }) => {
 
                     <p className="current-item" ref={currentItemRef}>
                         <span>
-                            Lorem ipsum dolor sit amet.
+                            Click "Spin" to Spin
                         </span>
                     </p>
 
@@ -152,10 +153,6 @@ const PickerWheel = ({ activeList }) => {
                                                 strokeWidth="2"
                                                 fill="hsl(var(--clr-neutral-400))"
                                                 title={item.title}
-                                            // onMouseEnter={(e) => {
-                                            //     console.log("Hello ")
-                                            //     console.log(e.target.getAttribute("title"))
-                                            // }}
                                             />
 
                                             <path id={`textPath-${index}`} d={createTextPath(index, item.title)} fill="none" />
@@ -224,7 +221,8 @@ const PickerWheel = ({ activeList }) => {
                     </div>
                 </div>
                 <div className="col-right">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque, eaque error fuga consectetur quaerat ex mollitia iste beatae est sequi iusto, amet dolorem eum debitis magnam repudiandae enim odio. Reprehenderit, adipisci sint rerum nulla quam nisi! Quod debitis consequatur voluptates, error cupiditate facilis at et rem unde rerum suscipit, deleniti aperiam dolores nulla non eaque ea, quibusdam sit voluptatem magni eum? Consequuntur, iure debitis voluptates distinctio natus exercitationem neque. Itaque, accusantium? Maxime nisi dolor cumque, eos dolores magnam possimus quasi repudiandae nobis, ipsum dolore reprehenderit quis! Quidem ducimus aperiam sint quam, rerum velit omnis nulla aliquid rem fugiat aliquam, architecto, fugit expedita. A ab quas porro placeat labore quo magnam assumenda libero at. Iste ab in corporis officiis eveniet nobis pariatur provident quasi ad ea sapiente quis nesciunt vitae quo iusto adipisci odit voluptates facilis repudiandae, consequuntur error aliquid? Ipsa ut perspiciatis eaque amet eveniet tempora veniam vel soluta, eos exercitationem sed sint quaerat? Facilis fugiat ipsum minus. Sit aliquid quis iusto? Ducimus nihil temporibus assumenda quidem aut. Iste voluptate ad doloremque repellendus, quasi aspernatur quod hic exercitationem. Quis corporis voluptates nemo a repellat ratione minus praesentium totam corrupti, vel quia commodi cupiditate! Veritatis deleniti eligendi vitae repellendus quas dolorum?
+
+                    <PickerListEditor listData={activeList} readonly={true} />
                 </div>
             </section>
         </section>
