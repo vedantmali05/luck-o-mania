@@ -216,9 +216,11 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.4rem;
+  gap: 0.8rem;
   padding: 0.8rem 1.2rem;
   padding-left: 0.8rem;
+  text-transform: capitalize;
+  user-select: none;
 }
 
 button.primary {
@@ -229,4 +231,121 @@ button.primary {
 button.ghost {
   background-color: hsl(var(--clr-white));
   border: 1px solid hsl(var(--clr-neutral-300));
+}
+
+button.x-large {
+  flex-direction: column;
+  padding: 1.6rem;
+  width: 100%;
+  margin-bottom: 1.6rem;
+}
+
+button.ghost.x-large {
+  border-color: hsl(var(--clr-neutral-200));
+}
+
+/* /////////////////////////
+  UTITILY CLASSES
+///////////////////////// */
+
+@media screen and (min-width: 480px) {
+  .mobile-only {
+    display: none;
+    position: absolute;
+    pointer-events: none;
+    user-select: none;
+    visibility: hidden;
+    width: 0px;
+    height: 0px;
+  }
+}
+/* Hide on Mobile (Show only on Tab & Desktop) */
+@media screen and (max-width: 480px) {
+  .tab-desk-only {
+    display: none;
+    position: absolute;
+    pointer-events: none;
+    user-select: none;
+    visibility: hidden;
+    width: 0px;
+    height: 0px;
+  }
+}
+
+/* Hide on Tablet (Show only on Mobile & Desktop) */
+@media screen and (min-width: 480px) and (max-width: 1023px) {
+  .hide-on-tab-only {
+    display: none;
+    position: absolute;
+    pointer-events: none;
+    user-select: none;
+    visibility: hidden;
+    width: 0px;
+    height: 0px;
+  }
+}
+
+/* Hide on Desktop (Show only on Mobile & Tablet) */
+@media screen and (min-width: 1024px) {
+  .mobile-tab-only {
+    display: none;
+    position: absolute;
+    pointer-events: none;
+    user-select: none;
+    visibility: hidden;
+    width: 0px;
+    height: 0px;
+  }
+}
+
+/* Hide on Mobile & Desktop (Show only on Tablet) */
+@media screen and (max-width: 479px), (min-width: 1024px) {
+  .tab-only {
+    display: none;
+    position: absolute;
+    pointer-events: none;
+    user-select: none;
+    visibility: hidden;
+    width: 0px;
+    height: 0px;
+  }
+}
+
+/* Hide on Mobile & Tablet (Show only on Desktop) */
+@media screen and (max-width: 1023px) {
+  .desktop-only {
+    display: none;
+    position: absolute;
+    pointer-events: none;
+    user-select: none;
+    visibility: hidden;
+    width: 0px;
+    height: 0px;
+  }
+}
+
+/* /////////////////////////
+  LARGE CONTAINERS
+///////////////////////// */
+
+@media screen and (min-width: 1024px) {
+  #root:has(nav.active) main {
+    margin-left: 26rem;
+  }
+
+  #root:has(nav.active) header .nav-open-btn {
+    max-width: 0;
+    min-width: 0;
+    overflow: hidden;
+    position: absolute;
+  }
+}
+
+section.main-sec {
+  padding: 1.6rem 3.2rem;
+}
+
+section.main-sec h2 {
+  font-size: var(--fs-600);
+  margin-bottom: 1.2rem;
 }

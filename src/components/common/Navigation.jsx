@@ -1,6 +1,6 @@
 import { useState } from "react";
-import IconButton from "./components/IconButton.jsx";
-import MenuButton from "./components/MenuButton.jsx";
+import IconButton from "./IconButton.jsx";
+import MenuButton from "./MenuButton.jsx";
 
 const Navigation = ({ isNavActive, setIsNavActive }) => {
     const [activeMenu, setActiveMenu] = useState("picker wheel");
@@ -12,6 +12,13 @@ const Navigation = ({ isNavActive, setIsNavActive }) => {
             setIsNavActive(false);
         }
     };
+
+    const openNavByDefault = () => {
+        if (window.innerWidth > 1024) setIsNavActive(true);
+        else setIsNavActive(false);
+    }
+
+    window.addEventListener("load", openNavByDefault);
 
     const menuItems = [
         { icon: "☸️", label: "Picker Wheel", key: "picker wheel" },
@@ -25,7 +32,10 @@ const Navigation = ({ isNavActive, setIsNavActive }) => {
                 {/* Nav Header */}
                 <section className="nav-header">
                     {/* Add a Mobile Visible Logo here .mobile-only */}
-                    <IconButton icon="bi-x-lg" onClick={() => setIsNavActive(false)} />
+                    <IconButton
+                        icon="bi-x-lg"
+                        onClick={() => setIsNavActive(false)}
+                    />
                 </section>
 
                 {/* Nav Contents */}

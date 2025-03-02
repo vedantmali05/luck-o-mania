@@ -1,6 +1,6 @@
 import PropTypes from "prop-types"
 import PickerListEditor from "./PickerListEditor.jsx";
-import IconButton from "./components/IconButton.jsx";
+import IconButton from "../common/IconButton.jsx";
 
 const PickerListDialog = ({ activeList, setActiveList }) => {
 

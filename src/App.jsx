@@ -1,9 +1,10 @@
 import { useState } from "react";
-import Header from "./Header.jsx"
-import Navigation from "./Navigation.jsx";
-import PickerListCard from "./PickerListCard.jsx";
-import PickerListDialog from "./PickerListDialog.jsx";
-import PickerWheel from "./PickerWheel.jsx";
+import Header from "./components/common/Header.jsx"
+import Navigation from "./components/common/Navigation.jsx";
+import Home from "./pages/Home.jsx";
+import PickerListCard from "./components/picker/PickerListCard.jsx";
+import PickerListDialog from "./components/picker/PickerListDialog.jsx";
+import PickerWheel from "./components/picker/PickerWheel.jsx";
 
 function App() {
   let tempListData =
@@ -45,14 +46,12 @@ function App() {
   const [isNavActive, setIsNavActive] = useState(false);
   const [activeList, setActiveList] = useState(null);
 
-
   return (<>
-    <Header setIsNavActive={setIsNavActive} />
     <Navigation isNavActive={isNavActive} setIsNavActive={setIsNavActive} />
-    <PickerWheel activeList={tempListData2} />
-    {/* <PickerListCard cardData={tempListData} setActiveList={setActiveList} />
-    <PickerListCard cardData={tempListData2} setActiveList={setActiveList} />
-    <PickerListDialog activeList={activeList} setActiveList={setActiveList} /> */}
+    <main>
+      <Header setIsNavActive={setIsNavActive} />
+      <Home />
+    </main>
   </>
   );
 

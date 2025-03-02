@@ -5,7 +5,8 @@ header {
 }
 
 header,
-header > div {
+header > div,
+header div.options {
   gap: 1.6rem;
   display: flex;
   align-items: center;
@@ -22,9 +23,15 @@ header button.icon {
 }
 
 header button.icon:hover {
-    background-color: hsl(var(--clr-neutral-150));
+  background-color: hsl(var(--clr-neutral-150));
 }
 
 header h1 {
   font-size: var(--fs-500);
+}
+
+
+header .search-btn-lg {
+  min-width: 22rem;
+  justify-content: start;
 }

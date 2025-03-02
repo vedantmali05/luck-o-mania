@@ -1,8 +1,8 @@
 import { useState, useRef } from "react";
 import PropTypes from "prop-types";
-import IconButton from "./components/IconButton";
-import CTAButton from "./components/CTAButton";
-import { setDymanicHeight } from "./utils/utils";
+import IconButton from "../common/IconButton";
+import CTAButton from "../common/CTAButton";
+import { setDymanicHeight } from "../../utils/utils";
 
 const PickerListEditor = ({ listData = {} }) => {
 

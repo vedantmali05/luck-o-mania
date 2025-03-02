@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import CTAButton from "./components/CTAButton.jsx";
+import CTAButton from "../common/CTAButton.jsx";
 import PickerListEditor from "./PickerListEditor.jsx"
 
 const PickerWheel = ({ activeList }) => {

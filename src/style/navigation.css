@@ -44,6 +44,7 @@ nav .nav-body > * {
 nav .nav-header,
 nav .nav-footer {
   border-bottom: 1px solid hsl(var(--clr-neutral-150));
+  height: calc(var(--header-height) - 1px);
   display: flex;
   align-content: center;
   justify-content: space-between;
@@ -70,4 +71,34 @@ nav .menu-item.active {
 
 nav .menu-item.active:hover {
   background-color: hsl(var(--clr-neutral-900));
+}
+
+@media screen and (min-width: 1024px) {
+  nav,
+  nav.active {
+    position: fixed;
+    opacity: 1;
+    visibility: visible;
+    width: 26rem;
+    z-index: 10;
+    background-color: hsl(var(--clr-white));
+    border-right: 1px solid hsl(var(--clr-neutral-150));
+  }
+
+  nav {
+    max-width: 0px;
+    overflow: hidden;
+  }
+
+  nav.active {
+    max-width: 26rem;
+  }
+
+  nav .nav-body {
+    position: static;
+    top: 0;
+    left: 0;
+    opacity: 1;
+    visibility: visible;
+  }
 }

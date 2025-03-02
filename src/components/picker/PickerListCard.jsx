@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import IconButton from "./components/IconButton";
+import IconButton from "../common/IconButton";
 
 const PickerListCard = ({ cardData = {}, setActiveList }) => {
 
