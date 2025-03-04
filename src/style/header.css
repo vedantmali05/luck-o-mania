@@ -1,4 +1,5 @@
-header {
+#main_header {
+  z-index: 99;
   padding: 1.2rem 1.6rem;
   background-color: hsl(var(--clr-neutral-100));
   border-bottom: 1px solid hsl(var(--clr-neutral-150));
@@ -17,21 +18,20 @@ header > div {
   justify-content: space-between;
 }
 
-header button.icon {
+#main_header button.icon {
   font-size: var(--fs-400);
   border-color: hsl(var(--clr-neutral-200));
 }
 
-header button.icon:hover {
+#main_header button.icon:hover {
   background-color: hsl(var(--clr-neutral-150));
 }
 
-header h1 {
+#main_header h1 {
   font-size: var(--fs-500);
 }
 
-
-header .search-btn-lg {
+#main_header .search-btn-lg {
   min-width: 22rem;
   justify-content: start;
 }

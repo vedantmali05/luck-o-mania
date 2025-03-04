@@ -1,23 +1,28 @@
-import { useEffect, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
+import { GlobalContext } from "../../context/GlobalContext.jsx";
 import Icon from "./Icon.jsx";
 import IconButton from "./IconButton.jsx";
 import CTAButton from "./CTAButton.jsx"
 
 const Header = ({ setIsNavActive }) => {
+
+    const { currentSecHeading, setCurrentSecHeading, headerHeight, setHeaderHeight } = useContext(GlobalContext);
+
     const headerRef = useRef(null);
 
     useEffect(() => {
-        if (headerRef.current) {
-            setTimeout(() => {
-                document.body.style.setProperty("--header-height", (headerRef.current?.clientHeight || 0) + 1 + "px");
-            }, 500);
-        }
+        setTimeout(() => {
+            if (headerRef.current) {
+                setHeaderHeight(h => h = ((headerRef.current?.clientHeight || 0) + 1 + "px"));
+            }
+        }, 500);
     }, [])
 
+    document.body.style.setProperty("--header-height", headerHeight);
 
 
     return (
-        <header ref={headerRef}>
+        <header ref={headerRef} id="main_header">
             <IconButton
                 icon="bi-list"
                 onClick={() => { setIsNavActive(true) }}
@@ -25,19 +30,16 @@ const Header = ({ setIsNavActive }) => {
             />
 
             <div>
-                <h1>Luck·O·Mania</h1>
+                <h1>{currentSecHeading || "Luck·O·Mania"}</h1>
 
                 <div className="options">
                     <IconButton
                         icon="bi-search"
                         className="mobile-tab-only"
                     />
-                    <IconButton
-                        icon="bi-person-circle"
-                        className="mobile-only"
-                    />
 
-                    <button className="ghost search-btn-lg desktop-only">
+                    <button
+                        className="ghost search-btn-lg desktop-only">
                         <Icon icon={"bi-search"}></Icon>
                         <span style={{
                             "marginRight": "auto"
@@ -45,10 +47,15 @@ const Header = ({ setIsNavActive }) => {
                         <Icon icon={"bi-slash-square"} />
                     </button>
 
+                    <IconButton
+                        icon="bi-person-circle"
+                        className="mobile-only"
+                    />
+
                     <CTAButton
                         icon="bi-person-circle"
                         label={"You"}
-                        className="tab-desktop-only ghost"
+                        className="tab-desk-only ghost"
                     />
                 </div>
             </div>

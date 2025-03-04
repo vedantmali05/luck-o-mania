@@ -5,22 +5,12 @@
   column-gap: 1.6rem;
 }
 
-@media screen and (min-width: 480px) {
-    .get-started-sec .sec-content {
-      display: flex;
-      justify-content: start;
-    }
-
-    .get-started-sec button.x-large {
-      max-width: 24rem;
-    }
-}
-
-.get-started-sec .sec-content button.x-large {
-  height: 12rem;
+.get-started-sec .sec-content button.x-large:not(.build-btn) {
+  height: 8rem;
 }
 
 .get-started-sec .sec-content button.build-btn {
+  height: 12rem;
   grid-area: A;
 }
 
@@ -32,3 +22,29 @@
   grid-area: C;
 }
 
+@media screen and (min-width: 480px) {
+  .get-started-sec .sec-content {
+    display: flex;
+    justify-content: start;
+  }
+
+  .get-started-sec button.x-large {
+    max-width: 24rem;
+  }
+
+  .get-started-sec .sec-content button.x-large {
+    height: 12rem !important;
+  }
+}
+
+.all-lists-sec .tab-sec .list-cards-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.4rem;
+}
+
+.all-lists-sec .tab-sec .list-cards-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.4rem;
+}

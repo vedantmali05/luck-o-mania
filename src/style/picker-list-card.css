@@ -1,7 +1,8 @@
 .picker-list-card {
   border: 1px solid hsl(var(--clr-neutral-200));
   border-radius: 0.8rem;
-  max-width: 24rem;
+  max-width: 26rem;
+  width: 100%;
   overflow: hidden;
   cursor: pointer;
   position: relative;

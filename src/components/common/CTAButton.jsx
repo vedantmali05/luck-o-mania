@@ -1,7 +1,8 @@
 import PropTypes from "prop-types";
 import Icon from "./Icon.jsx";
+import { forwardRef } from "react";
 
-const CTAButton = ({ icon, iconType = "icon", label, className = "", ...rest }) => {
+const CTAButton = forwardRef(({ icon, iconType = "icon", label, className = "", ...rest }, ref) => {
     return (
         <button className={`${className}`} {...rest}>
             {
@@ -11,7 +12,7 @@ const CTAButton = ({ icon, iconType = "icon", label, className = "", ...rest }) 
             {label}
         </button>
     )
-}
+})
 
 CTAButton.propTypes = {
     icon: PropTypes.string,
